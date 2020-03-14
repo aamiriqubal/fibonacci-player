@@ -2,15 +2,16 @@ import React from "react";
 import { get, set, isEmpty } from "lodash";
 import "./styles.scss";
 
-const GRID_SIZE = 50;
+const GRID_SIZE = 10;
 const FIBONACCI_SIZE_CHECK = 5;
+const DEFAULT_GRID_VALUE = -1;
 // This function contains the logic to initialise and update the grid values
 const getGridValues = (objectGrid, updateIndexes) => {
   const gridValues = {};
   objectGrid.forEach((x, rowIndex) =>
     objectGrid.forEach((y, columnIndex) => {
       if (isEmpty(updateIndexes)) {
-        set(gridValues, `${rowIndex}.${columnIndex}.value`, 0);
+        set(gridValues, `${rowIndex}.${columnIndex}.value`, DEFAULT_GRID_VALUE);
       } else {
         const {
           clickedRowIndex,
@@ -26,7 +27,7 @@ const getGridValues = (objectGrid, updateIndexes) => {
         const value = get(
           currentGridValues,
           `${rowIndex}.${columnIndex}.value`,
-          0
+          DEFAULT_GRID_VALUE
         );
         if (
           rowIndex === clickedRowIndex ||
@@ -39,7 +40,11 @@ const getGridValues = (objectGrid, updateIndexes) => {
         // if the content matched Fibonnaci then set to zero
         if (isPartOfFibonacci) {
           set(gridValues, `${rowIndex}.${columnIndex}.isTrue`, undefined);
-          set(gridValues, `${rowIndex}.${columnIndex}.value`, 0);
+          set(
+            gridValues,
+            `${rowIndex}.${columnIndex}.value`,
+            DEFAULT_GRID_VALUE
+          );
         }
       }
     })
@@ -183,7 +188,7 @@ const App = () => {
                   onClick={() => onClickGrid(rowIndex, columnIndex)}
                 >
                   {/* `${rowIndex}, ${columnIndex}` */} {/* <br /> */}
-                  {gridValue === 0 ? null : gridValue}
+                  {gridValue === DEFAULT_GRID_VALUE ? null : gridValue}
                 </div>
               );
             })}
