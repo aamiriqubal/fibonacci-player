@@ -196,8 +196,8 @@ const App = () => {
         </p>
         <p className="fibonacci-player__score">
           {score} <br />
-          <button onClick={resetGame}>RESET</button>
         </p>
+        <button onClick={resetGame}>RESET</button>
       </div>
 
       {objectGrid.map((value, rowIndex) => (

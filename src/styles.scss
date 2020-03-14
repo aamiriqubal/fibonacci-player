@@ -14,7 +14,7 @@ html, body {
 
   &__container{
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 4fr 1fr;
   }
 
   &__score {
@@ -28,8 +28,11 @@ html, body {
   button {
     padding: 6px;
     border-radius: 6px;
+    grid-column: 2/2;
     color: purple;
     font-size: 20px;
+    width: 200px;
+    margin: 0 100px 40px 0;
   }
 
   p {
