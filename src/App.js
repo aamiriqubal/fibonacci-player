@@ -194,9 +194,10 @@ const App = () => {
           consecutive numbers in the Fibonacci sequence are next to each other,
           these cells will briefly turn green and will be cleared.
         </p>
-        <p className="fibonacci-player__score">
-          {score} <br />
-        </p>
+        <div className="fibonacci-player__score-board">
+          <h1>Score</h1>
+          <div className="fibonacci-player__score-board--score">{score}</div>
+        </div>
         <button onClick={resetGame}>RESET</button>
       </div>
 
