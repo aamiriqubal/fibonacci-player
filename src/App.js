@@ -4,7 +4,7 @@ import "./styles.scss";
 
 const GRID_SIZE = 10;
 const FIBONACCI_SIZE_CHECK = 5;
-const DEFAULT_GRID_VALUE = -1;
+const DEFAULT_GRID_VALUE = 0;
 const POINTS_PER_NUMBER = 5;
 // This function contains the logic to initialise and update the grid values
 const getGridValues = (objectGrid, updateIndexes) => {
