@@ -5,6 +5,7 @@ import "./styles.scss";
 const GRID_SIZE = 10;
 const FIBONACCI_SIZE_CHECK = 5;
 const DEFAULT_GRID_VALUE = -1;
+const POINTS_PER_NUMBER = 5;
 // This function contains the logic to initialise and update the grid values
 const getGridValues = (objectGrid, updateIndexes) => {
   const gridValues = {};
@@ -93,29 +94,51 @@ const App = () => {
   const initialGridValues = getGridValues(objectGrid);
   const [gridValues, setGridValues] = React.useState(initialGridValues);
   const [className, setClassName] = React.useState("");
+  const [score, setScore] = React.useState(0);
 
   const checkFibonacciAndReset = updatedGridValues => {
     const fibonacciArray = getFibonacci(GRID_SIZE);
     const newGridValues = updatedGridValues;
+    let currentScore = 0;
     objectGrid.forEach((val, rowIndex) => {
       let startPoint = 0;
       let hasMatch = false;
       while (startPoint < GRID_SIZE) {
-        const extractedArray = [];
+        const extractedRowArray = [];
+        const extractedColumnArray = [];
         let endPoint = startPoint + FIBONACCI_SIZE_CHECK - 1;
         if (endPoint < GRID_SIZE) {
           for (let i = startPoint; i <= endPoint; i++) {
-            const value = get(updatedGridValues, `${rowIndex}.${i}.value`);
-            extractedArray.push(value);
+            const rowValue = get(updatedGridValues, `${rowIndex}.${i}.value`);
+            const columnValue = get(
+              updatedGridValues,
+              `${i}.${rowIndex}.value`
+            );
+            extractedRowArray.push(rowValue);
+            extractedColumnArray.push(columnValue);
           }
-          const isFibonacci = containsArrayInSameSequence(
+          const isRowFibonacci = containsArrayInSameSequence(
             fibonacciArray,
-            extractedArray
+            extractedRowArray
           );
-          if (isFibonacci) {
+          const isColumnFibonacci = containsArrayInSameSequence(
+            fibonacciArray,
+            extractedColumnArray
+          );
+          if (isRowFibonacci) {
             hasMatch = true;
-            for (let i = startPoint; i <= endPoint; i++) {
+            currentScore += extractedRowArray.length + POINTS_PER_NUMBER;
+          }
+          if (isColumnFibonacci) {
+            hasMatch = true;
+            currentScore += extractedColumnArray.length + POINTS_PER_NUMBER;
+          }
+          for (let i = startPoint; i <= endPoint; i++) {
+            if (isRowFibonacci) {
               set(newGridValues, `${rowIndex}.${i}.isTrue`, true);
+            }
+            if (isColumnFibonacci) {
+              set(newGridValues, `${i}.${rowIndex}.isTrue`, true);
             }
           }
         }
@@ -131,8 +154,15 @@ const App = () => {
           });
           setGridValues(resetGridValues);
         }, 1000);
+        setTimeout(() => setScore(currentScore + score), 1000);
       }
     });
+  };
+
+  const resetGame = () => {
+    const newGridValues = getGridValues(objectGrid);
+    setScore(0);
+    setGridValues(newGridValues);
   };
 
   const onClickGrid = (clickedRowIndex, clickedColumnIndex) => {
@@ -154,15 +184,22 @@ const App = () => {
   };
   const prevGridValues = getPrevGridValues();
   return (
-    <div className="change-numbers">
+    <div className="fibonacci-player">
       <h1>Fibonacci Player</h1>
-      <p>
-        When you click on a cell, all values in the cells in the same row and
-        column are increased by 1 or, if a cell was empty, it will get a value
-        of 1. After each change a cell will briefly turn yellow. If 5
-        consecutive numbers in the Fibonacci sequence are next to each other,
-        these cells will briefly turn green and will be cleared.
-      </p>
+      <div className="fibonacci-player__container">
+        <p>
+          When you click on a cell, all values in the cells in the same row and
+          column are increased by 1 or, if a cell was empty, it will get a value
+          of 1. After each change a cell will briefly turn yellow. If 5
+          consecutive numbers in the Fibonacci sequence are next to each other,
+          these cells will briefly turn green and will be cleared.
+        </p>
+        <p className="fibonacci-player__score">
+          {score} <br />
+          <button onClick={resetGame}>RESET</button>
+        </p>
+      </div>
+
       {objectGrid.map((value, rowIndex) => (
         <React.Fragment key={rowIndex}>
           <div className="row" key={`row-${rowIndex}`}>
