@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css?family=Baloo+Da+2&display=swap');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Baloo Da 2', cursive;
+}
+
+.change-numbers {
+  max-width: 800;
+  margin: 20px auto;
+  text-align: center;
+  vertical-align: center;
+  
+  .row {
+    padding-top: 6px;
+    display: inline-flex;
+  }
+  
+  .column {
+    border: 1px solid tomato;
+    border-radius: 3px;
+    color: purple;
+    padding-bottom: 10px;
+    font-size: 26px;
+    text-align: center;
+    margin: 6px;
+    width: 40px;
+    height: 30px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &--yellow {
+      transition: background .2s ease-in;
+      animation: fadeoutYellow 2s;
+    }
+  }
+
+  .column--green {
+      transition: background .2s ease-in;
+      animation: fadeoutGreen 3s;
+  }
+}
+
+@keyframes fadeoutYellow {
+  from { background-color: #f2d602; } /** from color **/
+  to { background-color: #FFF; } /** to color **/
+}
+
+@keyframes fadeoutGreen {
+  from { background-color: #18BD0A; } /** from color **/
+  to { background-color: #FFF; } /** to color **/
+}
