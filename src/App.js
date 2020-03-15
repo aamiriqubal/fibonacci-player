@@ -198,7 +198,7 @@ const App = () => {
           <h1>Score</h1>
           <div className="fibonacci-player__score-board--score">{score}</div>
         </div>
-        <button onClick={resetGame}>RESET</button>
+        <button onClick={resetGame}>RESTART</button>
       </div>
 
       <div className="fibonacci-player__board">
