@@ -201,47 +201,48 @@ const App = () => {
         <button onClick={resetGame}>RESET</button>
       </div>
 
-      {objectGrid.map((value, rowIndex) => (
-        <React.Fragment key={rowIndex}>
-          <div className="row" key={`row-${rowIndex}`}>
-            {objectGrid.map((x, columnIndex) => {
-              const gridValue = get(
-                gridValues,
-                `${rowIndex}.${columnIndex}.value`,
-                0
-              );
-              const prevGridValue = get(
-                prevGridValues,
-                `${rowIndex}.${columnIndex}.value`,
-                0
-              );
-              const isPartOfFibonacci = get(
-                gridValues,
-                `${rowIndex}.${columnIndex}.isTrue`,
-                false
-              );
+      <div className="fibonacci-player__board">
+        {objectGrid.map((value, rowIndex) => (
+          <React.Fragment key={rowIndex}>
+            <div className="row" key={`row-${rowIndex}`}>
+              {objectGrid.map((x, columnIndex) => {
+                const gridValue = get(
+                  gridValues,
+                  `${rowIndex}.${columnIndex}.value`,
+                  0
+                );
+                const prevGridValue = get(
+                  prevGridValues,
+                  `${rowIndex}.${columnIndex}.value`,
+                  0
+                );
+                const isPartOfFibonacci = get(
+                  gridValues,
+                  `${rowIndex}.${columnIndex}.isTrue`,
+                  false
+                );
 
-              return (
-                <div
-                  key={`column-${columnIndex}`}
-                  className={`column ${
-                    isPartOfFibonacci
-                      ? "column--green"
-                      : gridValue !== prevGridValue
-                      ? className
-                      : ""
-                  }`}
-                  onClick={() => onClickGrid(rowIndex, columnIndex)}
-                >
-                  {/* `${rowIndex}, ${columnIndex}` */} {/* <br /> */}
-                  {gridValue === DEFAULT_GRID_VALUE ? null : gridValue}
-                </div>
-              );
-            })}
-          </div>
-          <br />
-        </React.Fragment>
-      ))}
+                return (
+                  <div
+                    key={`column-${columnIndex}`}
+                    className={`column ${
+                      isPartOfFibonacci
+                        ? "column--green"
+                        : gridValue !== prevGridValue
+                        ? className
+                        : ""
+                    }`}
+                    onClick={() => onClickGrid(rowIndex, columnIndex)}
+                  >
+                    {/* `${rowIndex}, ${columnIndex}` */} {/* <br /> */}
+                    {gridValue === DEFAULT_GRID_VALUE ? null : gridValue}
+                  </div>
+                );
+              })}
+            </div>
+          </React.Fragment>
+        ))}
+      </div>
     </div>
   );
 };
