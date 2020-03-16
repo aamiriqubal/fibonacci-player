@@ -54,7 +54,7 @@ const getGridValues = (objectGrid, updateIndexes) => {
 };
 
 const getFibonacci = (size = 0) => {
-  let a = 0;
+  let a = 1;
   let b = 1;
   let counter = 2;
   const fibonacciArray = [0, 1];
